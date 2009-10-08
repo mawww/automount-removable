@@ -1,0 +1,3 @@
+ACTION=="add", KERNEL=="sd[b-z][0-9]", NAME="%k", GROUP:="plugdev"
+ACTION=="add", KERNEL=="sd[b-z][0-9]", RUN+="/bin/mount-removable %k"
+ACTION=="remove", KERNEL=="sd[b-z][0-9]", RUN+="/bin/umount-removable %k"
