@@ -1,0 +1,24 @@
+#!/bin/bash
+
+options=""
+mountprg=mount
+label="$(/sbin/blkid -s LABEL -o value /dev/$1)"
+fstype="$(/sbin/blkid -s TYPE -o value /dev/$1)"
+
+case $fstype in
+    vfat)
+        options="-o umask=000"
+        ;;
+    ntfs)
+        mountprg=ntfs-3g
+        ;;
+esac
+
+logger "automounting /dev/$1, fs=$fstype, label=$label"
+
+mkdir /media/$1
+$mountprg /dev/$1 /media/$1 $options
+
+if [[ "$label" != "" ]]; then
+    ln -sf /media/$1 /media/$label
+fi

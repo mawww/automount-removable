@@ -1,0 +1,12 @@
+#!/bin/bash
+
+label=$(find /media/* -maxdepth 0 -type l -lname "/media/$1")
+
+logger "autounmount /dev/$1, symlink=$label"
+
+if [[ "$label" != "" ]]; then
+    rm "$label"
+fi
+
+umount /media/$1
+rmdir /media/$1
