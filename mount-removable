@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $# != 1 ]]; then
+    echo "usage: $0 device-name"
+    exit
+fi
+
 options=""
 mountprg=mount
 label="$(/sbin/blkid -s LABEL -o value /dev/$1)"

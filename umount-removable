@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $# != 1 ]]; then
+    echo "usage: $0 device-name"
+    exit
+fi
+
 label=$(find /media/* -maxdepth 0 -type l -lname "/media/$1")
 
 logger "autounmount /dev/$1, symlink=$label"
